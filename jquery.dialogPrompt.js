@@ -11,6 +11,8 @@
       msg = msg || '';
       type = type || 'text';
       default_value = default_value || '';
+      success = success || function(){};
+      cancel = cancel || function(){};
       ok_text = ok_text || 'Ok';
       cancel_text = cancel_txt || 'Cancel';
       var counter = dlg_counter;
@@ -31,7 +33,7 @@
       var dlg_buttons = {};
       var ok_function = function(){
          //close dialog unless user returns false
-         if (typeof(success) != 'function' || success($('#'+ipt_id).val()) !== false){
+         if(success($('#'+ipt_id).val()) !== false){
              $(this).dialog('close');
          }
       }
