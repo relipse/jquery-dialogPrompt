@@ -20,7 +20,7 @@
          s += '</label>';
       }
       s += '</form></div>';
-      $(body).append($(s));
+      $(document.body).append($(s));
       
       var dlg_buttons = {};
       dlg_buttons[ok_text] = function(){
