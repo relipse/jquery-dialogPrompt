@@ -14,7 +14,7 @@
       ok_text = ok_text || 'Ok';
       cancel_text = cancel_txt || 'Cancel';
       var counter = dlg_counter;
-      var dlg_id = 'dlgPrompt_'+counter';
+      var dlg_id = 'dlgPrompt_'+counter;
       var ipt_id = dlg_id + '_ipt';
       
       var s = '<div id="dlgPrompt_'+counter+'" title="'+title+'"><form>';
