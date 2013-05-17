@@ -6,7 +6,7 @@
 (function ($) {
     var dlg_counter = 1;
     
-    var createDialog = function(title, msg, type, default_value, callback, ok_text, cancel_txt){
+    var createDialog = function(title, msg, type, default_value, success, cancel, ok_text, cancel_txt){
       title = title || 'Enter a value';
       msg = msg || '';
       type = type || 'text';
@@ -31,20 +31,16 @@
       var dlg_buttons = {};
       var ok_function = function(){
          //close dialog unless user returns false
-         if (typeof(callback) != 'function' || callback(true, $('#'+ipt_id).val()) !== false){
+         if (typeof(success) != 'function' || success($('#'+ipt_id).val()) !== false){
              $(this).dialog('close');
-             //now free memory
-             $('dlgPrompt_ipt_'+counter).dialog('destroy').remove();
          }
       }
       
       dlg_buttons[ok_text] = ok_function;
       dlg_buttons[cancel_text] = function(){
         //close dialog unless user returns false
-        if (typeof(callback) != 'function' || callback(true, $('#'+ipt_id).val()) !== false){
+        if (typeof(cancel) != 'function' || cancel(true, $('#'+ipt_id).val()) !== false){
              $('#'+dlg_id).dialog('close');
-             //now free memory
-             $('dlgPrompt_ipt_'+counter).dialog('destroy').remove();
          }          
       }
       
@@ -52,16 +48,19 @@
       var dlg$ = $('#'+dlg_id);
       var frm$ = $('#'+dlg_id + ' form');
       
-      //allow form submission (which means user pressed enter most of the time) also return OK
+      //transform form submission into OK click
       frm$.submit(function(){
-          ok_function();
+          dlg_buttons[ok_text]();
           return false;
       });
       
       dlg$.dialog({
         autoOpen: true,
         modal: true,
-        buttons: dlg_buttons
+        buttons: dlg_buttons,
+        close: {
+            setTimeout( function(){ dlg$.dialog('destroy').remove(); }, 1);
+        }
       });
       
       return {dlg:dlg$, ipt: $('#'+ipt_id), counter: counter};
@@ -79,6 +78,6 @@
           if (dlg_counter > 15){ return false; }
        }
        //dlg_counter does not exist, lets create it!
-       return createDialog(opts.title, opts.msg, opts.type, opts.default_value, opts.callback, opts.ok_text, opts.cancel_txt);   
+       return createDialog(opts.title, opts.msg, opts.type, opts.default_value, opts.success, opts.cancel, opts.ok_text, opts.cancel_txt);   
     }
 })(jQuery);
