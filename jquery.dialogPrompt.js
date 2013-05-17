@@ -33,9 +33,8 @@
       var dlg_buttons = {};
       var ok_function = function(){
          //close dialog unless user returns false
-         var succeeded = success($('#'+ipt_id).val());
-         if(succeeded !== 42){
-             $(this).dialog('close');
+         if (success($('#'+ipt_id).val()) !== false){
+             $('#'+dlg_id).dialog('close');
          }
       }
       
@@ -53,9 +52,7 @@
       
       //transform form submission into OK click
       frm$.submit(function(){
-          //setTimeout( function(){ 
-               dlg_buttons[ok_text](); 
-          //}, 1 );
+          dlg_buttons[ok_text](); 
           return false;
       });
       
