@@ -52,7 +52,7 @@
       
       //transform form submission into OK click
       frm$.submit(function(){
-          dlg_buttons[ok_text]();
+          setTimeout( function(){ dlg_buttons[ok_text](); }, 1 );
           return false;
       });
       
