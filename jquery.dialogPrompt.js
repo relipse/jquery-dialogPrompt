@@ -31,12 +31,16 @@
          //close dialog unless user returns false
          if (typeof(callback) != 'function' || callback(true, $('dlgPrompt_ipt_'+counter)) !== false){
              $(this).dialog('close');
+             //now free memory
+             $('dlgPrompt_ipt_'+counter).dialog('destroy').remove();
          }
       }
       dlg_buttons[cancel_text] = function(){
         //close dialog unless user returns false
         if (typeof(callback) != 'function' || callback(true, $('dlgPrompt_ipt_'+counter)) !== false){
              $(this).dialog('close');
+             //now free memory
+             $('dlgPrompt_ipt_'+counter).dialog('destroy').remove();
          }          
       }
       
