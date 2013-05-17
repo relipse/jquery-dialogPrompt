@@ -7,6 +7,10 @@
     var dlg_counter = 1;
     
     var createDialog = function(title, msg, type, default_value, callback, ok_text, cancel_txt){
+      title = title || 'Enter a value';
+      msg = msg || '';
+      type = type || 'text';
+      default_value = default_value || '';
       ok_text = ok_text || 'Ok';
       cancel_text = cancel_txt || 'Cancel';
       var counter = dlg_counter;
