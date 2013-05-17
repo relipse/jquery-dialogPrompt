@@ -11,11 +11,11 @@
       cancel_text = cancel_txt || 'Cancel';
       var counter = dlg_counter;
       
-      var s = '<div id="dlgPrompt_'+dlg_counter+'" title="'+title+'"><form>';
+      var s = '<div id="dlgPrompt_'+counter+'" title="'+title+'"><form>';
       if (msg){
          s += '<label>'+msg; 
       }
-      s += ' <input type="'+type+'" name="dlgPrompt_ipt_'+dlg_counter+'" value="'+default_value+'" id="dlgPrompt_ipt_'+dlg_counter+'" class="text ui-widget-content ui-corner-all" />';
+      s += ' <input type="'+type+'" name="dlgPrompt_ipt_'+counter+'" value="'+default_value+'" id="dlgPrompt_ipt_'+counter+'" class="text ui-widget-content ui-corner-all" />';
       if (msg){
          s += '</label>';
       }
@@ -24,23 +24,31 @@
       
       var dlg_buttons = {};
       dlg_buttons[ok_text] = function(){
-         if (callback(true, $('dlgPrompt_ipt_'+counter) !== false){
+         //close dialog unless user returns false
+         if (callback(true, $('dlgPrompt_ipt_'+counter)) !== false){
              $(this).dialog('close');
          }
       }
-      dlg_buttons[canc
+      dlg_buttons[cancel_text] = function(){
+        //close dialog unless user returns false
+        if (callback(true, $('dlgPrompt_ipt_'+counter)) !== false){
+             $(this).dialog('close');
+         }          
+      }
       
-      $("#dialog-form").dialog({
-        autoOpen: false,
+      var dlg$ = $('#dlgPrompt_'+counter);
+      dlg$.dialog({
+        autoOpen: true,
         modal: true,
-        buttons: {
-        }
+        buttons: dlg_buttons
       });
+      
+      return {dlg:dlg$, ipt: $('dlgPrompt_ipt_'+counter), counter: counter};
     }
     
     
     jQuery.dialogPrompt = function(opts){
-       opts = opts || {type:'text'};
+       opts = opts || {title:'Prompt',msg:false, type:'text',default_value:'',callback:function(ok){ alert(ok?'Ok clicked!':'Cancel clicked');}};
        var existing_dlg$ = $("#dlgPrompt_" + dlg_counter);
        
        //find non-existing dialog
@@ -49,6 +57,7 @@
           existing_dlg$ = $("#dlgPrompt_" + dlg_counter);
           if (dlg_counter > 15){ return false; }
        }
-       
+       //dlg_counter does not exist, lets create it!
+       return createDialog(opts.title, opts.msg, opts.type, opts.default_value, opts.callback, opts.ok_text, opts.cancel_txt);   
     }
 })(jQuery);
