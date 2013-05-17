@@ -25,13 +25,13 @@
       var dlg_buttons = {};
       dlg_buttons[ok_text] = function(){
          //close dialog unless user returns false
-         if (callback(true, $('dlgPrompt_ipt_'+counter)) !== false){
+         if (typeof(callback) != 'function' || callback(true, $('dlgPrompt_ipt_'+counter)) !== false){
              $(this).dialog('close');
          }
       }
       dlg_buttons[cancel_text] = function(){
         //close dialog unless user returns false
-        if (callback(true, $('dlgPrompt_ipt_'+counter)) !== false){
+        if (typeof(callback) != 'function' || callback(true, $('dlgPrompt_ipt_'+counter)) !== false){
              $(this).dialog('close');
          }          
       }
