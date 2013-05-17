@@ -1,7 +1,8 @@
 /**
  * dialogPrompt jquery plugin
  * Prompt the user for some input, get results
- * //prompt(msg,defaultText)
+ * replacing javascripts original prompt(msg,defaultText)
+ * @version 0.8
  */
 (function ($) {
     var dlg_counter = 1;
@@ -77,7 +78,6 @@
        while (existing_dlg$.length > 0){
           dlg_counter++;
           existing_dlg$ = $("#dlgPrompt_" + dlg_counter);
-          if (dlg_counter > 15){ return false; }
        }
        //dlg_counter does not exist, lets create it!
        return createDialog(opts.title, opts.msg, opts.type, opts.default_value, opts.success, opts.cancel, opts.ok_text, opts.cancel_txt);   
