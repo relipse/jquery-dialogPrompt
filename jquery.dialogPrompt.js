@@ -14,8 +14,9 @@
       ok_text = ok_text || 'Ok';
       cancel_text = cancel_txt || 'Cancel';
       var counter = dlg_counter;
+      var id = '#dlgPrompt_'+counter;
       
-      var s = '<div id="dlgPrompt_'+counter+'" title="'+title+'">';
+      var s = '<div id="dlgPrompt_'+counter+'" title="'+title+'"><form>';
       if (msg){
          s += '<label>'+msg; 
       }
@@ -23,11 +24,11 @@
       if (msg){
          s += '</label>';
       }
-      s += '</div>';
+      s += '</form></div>';
       $(document.body).append($(s));
       
       var dlg_buttons = {};
-      dlg_buttons[ok_text] = function(){
+      var ok_function = function(){
          //close dialog unless user returns false
          if (typeof(callback) != 'function' || callback(true, $('dlgPrompt_ipt_'+counter).val()) !== false){
              $(this).dialog('close');
@@ -35,16 +36,27 @@
              $('dlgPrompt_ipt_'+counter).dialog('destroy').remove();
          }
       }
+      
+      dlg_buttons[ok_text] = ok_function;
       dlg_buttons[cancel_text] = function(){
         //close dialog unless user returns false
         if (typeof(callback) != 'function' || callback(true, $('dlgPrompt_ipt_'+counter).val()) !== false){
-             $(this).dialog('close');
+             $(id).dialog('close');
              //now free memory
              $('dlgPrompt_ipt_'+counter).dialog('destroy').remove();
          }          
       }
       
-      var dlg$ = $('#dlgPrompt_'+counter);
+      
+      var dlg$ = $(id);
+      var frm$ = $(id + ' form');
+      
+      //allow form submission (which means user pressed enter most of the time) also return OK
+      frm$.submit(function(){
+          ok_function();
+          return false;
+      });
+      
       dlg$.dialog({
         autoOpen: true,
         modal: true,
