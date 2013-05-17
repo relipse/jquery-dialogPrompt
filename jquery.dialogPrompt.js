@@ -58,7 +58,7 @@
         autoOpen: true,
         modal: true,
         buttons: dlg_buttons,
-        close: {
+        close: function(){
             setTimeout( function(){ dlg$.dialog('destroy').remove(); }, 1);
         }
       });
