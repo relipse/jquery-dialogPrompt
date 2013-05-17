@@ -15,7 +15,7 @@
       cancel_text = cancel_txt || 'Cancel';
       var counter = dlg_counter;
       
-      var s = '<div id="dlgPrompt_'+counter+'" title="'+title+'"><form>';
+      var s = '<div id="dlgPrompt_'+counter+'" title="'+title+'">';
       if (msg){
          s += '<label>'+msg; 
       }
@@ -23,7 +23,7 @@
       if (msg){
          s += '</label>';
       }
-      s += '</form></div>';
+      s += '</div>';
       $(document.body).append($(s));
       
       var dlg_buttons = {};
