@@ -5,7 +5,8 @@
  * example: 
  * $.dialogPrompt('Enter your name: ', '', function(value){ ... });
  *
- * @version 0.9
+ * @see http://github.com/relipse/jquery-dialogPrompt
+ * @version 0.91
  */
 (function ($) {
     var dlg_counter = 1;
