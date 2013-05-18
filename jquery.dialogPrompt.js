@@ -11,7 +11,7 @@
     var dlg_counter = 1;
     
     var createDialog = function(title, msg, type, default_value, success, cancel, ok_text, cancel_txt){
-      title = title || 'Enter a value';
+      title = title || 'Prompt';
       msg = msg || '';
       type = type || 'text';
       default_value = default_value || '';
@@ -77,8 +77,9 @@
      * @param string|object  - msg string or options object
      * @param string|undefined - if param 1 is msg string, this should be default value
      * @param string|undefined - if param 1 is msg string, this should be success callback
+     * @param string|undefined - if param 1 is msg string, this can be the title, "Prompt" by default
      */
-    jQuery.dialogPrompt = function(opts, default_value, success){
+    jQuery.dialogPrompt = function(opts, default_value, success, title){
        
        if (typeof(opts) == 'string'){
           var msg = opts;
@@ -86,8 +87,9 @@
           opts.msg = msg;
           opts.default_value = default_value || '';
           opts.success = success;
+          opts.title = title;
        }
-       opts = opts || {title:'Prompt',msg:false, type:'text',default_value:''};
+       opts = opts || {};
        var existing_dlg$ = $("#dlgPrompt_" + dlg_counter);
        
        //find non-existing dialog
