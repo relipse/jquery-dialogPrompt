@@ -1,8 +1,11 @@
 /**
- * dialogPrompt jquery plugin
+ * $.dialogPrompt jquery plugin
  * Prompt the user for some input, get results
- * replacing javascripts original prompt(msg,defaultText)
- * @version 0.8
+ * replacing javascripts original prompt(msg,defaultText), 
+ * example: 
+ * $.dialogPrompt('Enter your name: ', '', function(value){ ... });
+ *
+ * @version 0.9
  */
 (function ($) {
     var dlg_counter = 1;
@@ -24,12 +27,12 @@
       if (msg){
          s += '<label>'+msg; 
       }
-      s += ' <input id="'+ipt_id+'" type="'+type+'" value="'+default_value+'"  class="text ui-widget-content ui-corner-all" />';
+      s += ' <input id="'+ipt_id+'" type="'+type+'" value="'+( default_value != '' ? $('<div/>').text(default_value).html() : '' )+'"  class="text ui-widget-content ui-corner-all" />';
       if (msg){
          s += '</label>';
       }
       s += '</form></div>';
-      $(document.body).append($(s));
+      $(document.body).append(s);
       
       var dlg_buttons = {};
       var ok_function = function(){
@@ -69,9 +72,22 @@
       return {dlg:dlg$, ipt: $('#'+ipt_id), counter: counter};
     }
     
-    
-    jQuery.dialogPrompt = function(opts){
-       opts = opts || {title:'Prompt',msg:false, type:'text',default_value:'',callback:function(ok){ alert(ok?'Ok clicked!':'Cancel clicked');}};
+    /** 
+     * Create a new prompt jQuery UI dialog
+     * @param string|object  - msg string or options object
+     * @param string|undefined - if param 1 is msg string, this should be default value
+     * @param string|undefined - if param 1 is msg string, this should be success callback
+     */
+    jQuery.dialogPrompt = function(opts, default_value, success){
+       
+       if (typeof(opts) == 'string'){
+          var msg = opts;
+          opts = {};
+          opts.msg = msg;
+          opts.default_value = default_value || '';
+          opts.success = success;
+       }
+       opts = opts || {title:'Prompt',msg:false, type:'text',default_value:''};
        var existing_dlg$ = $("#dlgPrompt_" + dlg_counter);
        
        //find non-existing dialog
