@@ -77,7 +77,7 @@
       
       //hide the title bar if no title
       if (!title){
-          dlg$.find('.ui-dialog-titlebar').css({ display:none });
+          dlg$.find('.ui-dialog-titlebar').css({ display:'none' });
       }
       
       
