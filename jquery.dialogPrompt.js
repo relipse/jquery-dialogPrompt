@@ -6,13 +6,12 @@
  * $.dialogPrompt('Enter your name: ', '', function(value){ ... });
  *
  * @see http://github.com/relipse/jquery-dialogPrompt
- * @version 0.93
+ * @version 0.94
  */
 (function ($) {
     var dlg_counter = 1;
     
     var createDialog = function(title, msg, type, default_value, success, cancel, ok_text, cancel_txt, fixed){
-      title = title || 'Prompt';
       msg = msg || '';
       type = type || 'text';
       default_value = default_value || '';
@@ -72,8 +71,13 @@
       });
       
       if (fixed){
-         $('.dialogPrompt.ui-dialog').css({position:"fixed"});
+         dlg$.find('.dialogPrompt.ui-dialog').css({position:"fixed"});
          //$('#'+dlg_id+'.dialogPrompt.ui-dialog').css({position:"fixed"});
+      }
+      
+      //hide the title bar if no title
+      if (!title){
+          dlg$.find('.ui-dialog-titlebar').css({ display:none });
       }
       
       
