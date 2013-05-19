@@ -6,7 +6,7 @@
  * $.dialogPrompt('Enter your name: ', '', function(value){ ... });
  *
  * @see http://github.com/relipse/jquery-dialogPrompt
- * @version 0.94
+ * @version 0.942
  */
 (function ($) {
     var dlg_counter = 1;
@@ -71,13 +71,13 @@
       });
       
       if (fixed){
-         $('.dialogPrompt.ui-dialog', dlg$).css({position:"fixed"});
+         dlg$.parent('.dialogPrompt.ui-dialog').css({position:"fixed"});
          //$('#'+dlg_id+'.dialogPrompt.ui-dialog').css({position:"fixed"});
       }
       
       //hide the title bar if no title
       if (!title){
-          $('.ui-dialog-titlebar', dlg$).css({ display:'none' });
+           dlg$.parent('.ui-dialog-titlebar').css({ display:'none' });
       }
       
       
