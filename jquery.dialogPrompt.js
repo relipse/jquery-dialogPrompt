@@ -71,13 +71,13 @@
       });
       
       if (fixed){
-         dlg$.children('.dialogPrompt.ui-dialog').css({position:"fixed"});
+         $('.dialogPrompt.ui-dialog', dlg$).css({position:"fixed"});
          //$('#'+dlg_id+'.dialogPrompt.ui-dialog').css({position:"fixed"});
       }
       
       //hide the title bar if no title
       if (!title){
-          dlg$.children('.ui-dialog-titlebar').css({ display:'none' });
+          $('.ui-dialog-titlebar', dlg$).css({ display:'none' });
       }
       
       
