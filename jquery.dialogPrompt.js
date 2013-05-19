@@ -72,7 +72,7 @@
       });
       
       if (fixed){
-         $('#'+dlg_id+' .ui-dialog').css({position:"fixed"});
+         $('#'+dlg_id+'.dialogPrompt.ui-dialog').css({position:"fixed"});
       }
       
       
