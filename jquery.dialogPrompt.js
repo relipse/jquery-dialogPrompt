@@ -77,7 +77,7 @@
       
       //hide the title bar if no title
       if (!title){
-           dlg$.parent('.ui-dialog-titlebar').css({ display:'none' });
+          $('.ui-dialog-titlebar', dlg$.parent()).css({ display:'none' });
       }
       
       
