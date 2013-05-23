@@ -27,7 +27,15 @@
       if (msg){
          s += '<label>'+msg; 
       }
-      s += ' <input id="'+ipt_id+'" type="'+type+'" value="'+( default_value != '' ? $('<div/>').text(default_value).html() : '' )+'"  class="text ui-widget-content ui-corner-all" />';
+      if (typeof(type)=='object' && type.type == 'select' && type.options && type.options.length > 0){
+        s += '<select id="'+ipt_id+'" class="text ui-widget-content ui-corner-all">';
+        for(var i = 0; i < type.options.length; ++i){
+            s += '<option value="'+$('<div/>').text(type.options[i].value).html()+'">'+type.options[i].text+'</option>';
+        }
+        s += '</select>';
+      }else{
+         s += ' <input id="'+ipt_id+'" type="'+type+'" value="'+( default_value != '' ? $('<div/>').text(default_value).html() : '' )+'"  class="text ui-widget-content ui-corner-all" />';
+      }
       if (msg){
          s += '</label>';
       }
