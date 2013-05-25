@@ -6,7 +6,7 @@
  * $.dialogPrompt('Enter your name: ', '', function(value){ ... });
  *
  * @see http://github.com/relipse/jquery-dialogPrompt
- * @version 0.96
+ * @version 0.961
  */
 (function ($) {
     var dlg_counter = 1;
@@ -36,7 +36,6 @@
         s += '</select>';
       }else if (type == 'textarea'){
          s += '<textarea id="'+ipt_id+'" style="width: 100%; height: 200px" class="text ui-widget-content ui-corner-all">'+( default_value != '' ? $('<div/>').text(default_value).html() : '' )+'</textarea>';
-      }
       }else{
          s += ' <input id="'+ipt_id+'" type="'+type+'" value="'+( default_value != '' ? $('<div/>').text(default_value).html() : '' )+'"  class="text ui-widget-content ui-corner-all" />';
       }
