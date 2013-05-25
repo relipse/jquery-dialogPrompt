@@ -6,7 +6,7 @@
  * $.dialogPrompt('Enter your name: ', '', function(value){ ... });
  *
  * @see http://github.com/relipse/jquery-dialogPrompt
- * @version 0.955
+ * @version 0.96
  */
 (function ($) {
     var dlg_counter = 1;
