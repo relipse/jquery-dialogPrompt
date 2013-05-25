@@ -36,6 +36,9 @@
         s += '</select>';
       }else if (type == 'textarea'){
          s += '<textarea id="'+ipt_id+'" style="width: 100%; height: 200px" class="text ui-widget-content ui-corner-all">'+( default_value != '' ? $('<div/>').text(default_value).html() : '' )+'</textarea>';
+      
+      }else if (type == 'none'){
+         //do nothing
       }else{
          s += ' <input id="'+ipt_id+'" type="'+type+'" value="'+( default_value != '' ? $('<div/>').text(default_value).html() : '' )+'"  class="text ui-widget-content ui-corner-all" />';
       }
