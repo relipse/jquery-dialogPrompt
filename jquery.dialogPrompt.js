@@ -6,12 +6,15 @@
  * $.dialogPrompt('Enter your name: ', '', function(value){ ... });
  *
  * @see http://github.com/relipse/jquery-dialogPrompt
- * @version 0.972
+ * @version 0.975
  */
 (function ($) {
     var dlg_counter = 1;
     
-    var createDialog = function(title, msg, type, default_value, success, cancel, ok_text, cancel_txt, fixed, extra_html){
+    var createDialog = function(title, msg, type, default_value, success, cancel, ok_text, cancel_txt, fixed, extra_html, modal){
+      if (typeof(modal) == 'undefined'){
+         modal = true;
+      }
       msg = msg || '';
       type = type || 'text';
       default_value = default_value || '';
@@ -82,7 +85,7 @@
       
       dlg$.dialog({
         autoOpen: true,
-        modal: true,
+        modal: modal,
         buttons: dlg_buttons,
         close: function(){
             setTimeout( function(){ dlg$.dialog('destroy').remove(); }, 1);
@@ -134,6 +137,6 @@
           existing_dlg$ = $("#dlgPrompt_" + dlg_counter);
        }
        //dlg_counter does not exist, lets create it!
-       return createDialog(opts.title, opts.msg, opts.type, opts.default_value, opts.success, opts.cancel, opts.ok_text, opts.cancel_txt, opts.fixed, opts.extra_html);   
+       return createDialog(opts.title, opts.msg, opts.type, opts.default_value, opts.success, opts.cancel, opts.ok_text, opts.cancel_txt, opts.fixed, opts.extra_html, opts.modal);   
     }
 })(jQuery);
