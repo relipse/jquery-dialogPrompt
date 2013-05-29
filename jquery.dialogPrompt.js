@@ -12,9 +12,7 @@
     var dlg_counter = 1;
     
     var createDialog = function(title, msg, type, default_value, success, cancel, ok_text, cancel_txt, fixed, extra_html, modal){
-      if (typeof(modal) == 'undefined'){
-         modal = true;
-      }
+      
       msg = msg || '';
       type = type || 'text';
       default_value = default_value || '';
@@ -25,6 +23,9 @@
       var counter = dlg_counter;
       var dlg_id = 'dlgPrompt_'+counter;
       var ipt_id = dlg_id + '_ipt';
+      if (typeof(modal) == 'undefined'){
+         modal = true;
+      }
       
       var s = '<div id="dlgPrompt_'+counter+'" title="'+title+'"><form>';
       if (msg){
@@ -124,10 +125,14 @@
           opts.success = success;
           opts.title = title;
           opts.fixed = true;
+          opts.modal = true;
        }
        opts = opts || {};
        if (typeof(opts.fixed) == 'undefined'){
            opts.fixed = true;
+       }
+       if (typeof(opts.modal) == 'undefined'){
+           opts.modal = true;
        }
        var existing_dlg$ = $("#dlgPrompt_" + dlg_counter);
        
