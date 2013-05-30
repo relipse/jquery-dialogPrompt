@@ -57,28 +57,26 @@
       $(document.body).append(s);
       var dlg$ = $('#'+dlg_id);
       var frm$ = $('#'+frm_id);
-      var frm = frm$ ? frm$.get(0) : false;
+      var ipt$ = $('#'+ipt_id);
+      var frm = frm$.length > 0 ? frm$.get(0) : undefined;
       
       var dlg_buttons = {};
       var ok_function = function(){
          //close dialog unless user returns false
-         var result = success.apply(frm, [$('#'+ipt_id).val(), {dlg:dlg$,frm:frm$,ipt:$('#'+ipt_id)}]);
+         var result = success.apply(frm, [ipt$.val(), {dlg:dlg$,frm:frm$,ipt:ipt$}]);
          if (result !== false){
-             $('#'+dlg_id).dialog('close');
+             dlg$.dialog('close');
          }
       }
       
       dlg_buttons[ok_text] = ok_function;
       dlg_buttons[cancel_text] = function(){
         //close dialog unless user returns false
-        var result = cancel.apply(frm, [$('#'+ipt_id).val(), {dlg:dlg$,frm:frm$,ipt:$('#'+ipt_id)}]);
+        var result = cancel.apply(frm, [ipt$.val(), {dlg:dlg$,frm:frm$,ipt:ipt$}]);
         if (result !== false){
-             $('#'+dlg_id).dialog('close');
+             dlg$.dialog('close');
         }          
       }
-      
-      
-      
       
       //transform form submission into OK click
       frm$.submit(function(){
