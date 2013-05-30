@@ -6,7 +6,7 @@
  * $.dialogPrompt('Enter your name: ', '', function(value){ ... });
  *
  * @see http://github.com/relipse/jquery-dialogPrompt
- * @version 0.976
+ * @version 0.977
  */
 (function ($) {
     var dlg_counter = 1;
@@ -23,11 +23,12 @@
       var counter = dlg_counter;
       var dlg_id = 'dlgPrompt_'+counter;
       var ipt_id = dlg_id + '_ipt';
+      var frm_id = dlg_id + '_frm';
       if (typeof(modal) == 'undefined'){
          modal = true;
       }
       
-      var s = '<div id="dlgPrompt_'+counter+'" title="'+title+'"><form>';
+      var s = '<div id="dlgPrompt_'+counter+'" title="'+title+'"><form id="'+frm_id+'">';
       if (msg){
          s += '<label>'+msg; 
       }
@@ -55,12 +56,13 @@
       s += '</form></div>';
       $(document.body).append(s);
       var dlg$ = $('#'+dlg_id);
-      var frm$ = $('#'+dlg_id + ' form');
+      var frm$ = $('#'+frm_id);
+      var frm = frm$ ? frm$.get(0) : false;
       
       var dlg_buttons = {};
       var ok_function = function(){
          //close dialog unless user returns false
-         var result = success.apply(frm$.get(0), [$('#'+ipt_id).val(), {dlg:dlg$,frm:frm$,ipt:$('#'+ipt_id)}]);
+         var result = success.apply(frm, [$('#'+ipt_id).val(), {dlg:dlg$,frm:frm$,ipt:$('#'+ipt_id)}]);
          if (result !== false){
              $('#'+dlg_id).dialog('close');
          }
@@ -69,7 +71,7 @@
       dlg_buttons[ok_text] = ok_function;
       dlg_buttons[cancel_text] = function(){
         //close dialog unless user returns false
-        var result = cancel.apply(frm$.get(0), [$('#'+ipt_id).val(), {dlg:dlg$,frm:frm$,ipt:$('#'+ipt_id)}]);
+        var result = cancel.apply(frm, [$('#'+ipt_id).val(), {dlg:dlg$,frm:frm$,ipt:$('#'+ipt_id)}]);
         if (result !== false){
              $('#'+dlg_id).dialog('close');
         }          
