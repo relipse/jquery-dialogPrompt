@@ -6,7 +6,7 @@
  * $.dialogPrompt('Enter your name: ', '', function(value){ ... });
  *
  * @see http://github.com/relipse/jquery-dialogPrompt
- * @version 0.977
+ * @version 0.979
  */
 (function ($) {
     var dlg_counter = 1;
@@ -63,7 +63,7 @@
       var dlg_buttons = {};
       var ok_function = function(){
          //close dialog unless user returns false
-         var result = success.apply(frm, [ipt$.val(), {dlg:dlg$,frm:frm$,ipt:ipt$}]);
+         var result = typeof(success) == 'function' ? success.apply(frm, [ipt$.val(), {dlg:dlg$,frm:frm$,ipt:ipt$}]) : undefined;
          if (result !== false){
              dlg$.dialog('close');
          }
@@ -72,7 +72,8 @@
       dlg_buttons[ok_text] = ok_function;
       dlg_buttons[cancel_text] = function(){
         //close dialog unless user returns false
-        var result = cancel.apply(frm, [ipt$.val(), {dlg:dlg$,frm:frm$,ipt:ipt$}]);
+        
+        var result = typeof(cancel) == 'function' ? cancel.apply(frm, [ipt$.val(), {dlg:dlg$,frm:frm$,ipt:ipt$}]) : undefined;
         if (result !== false){
              dlg$.dialog('close');
         }          
