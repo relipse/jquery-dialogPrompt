@@ -6,12 +6,12 @@
  * $.dialogPrompt('Enter your name: ', '', function(value){ ... });
  *
  * @see http://github.com/relipse/jquery-dialogPrompt
- * @version 0.98
+ * @version 0.99
  */
 (function ($) {
     var dlg_counter = 1;
     
-    var createDialog = function(title, msg, type, default_value, success, cancel, ok_text, cancel_txt, fixed, extra_html, modal){
+    var createDialog = function(title, msg, type, default_value, success, cancel, ok_text, cancel_txt, fixed, extra_html, modal, browser_resize){
       
       msg = msg || '';
       type = type || 'text';
@@ -99,11 +99,19 @@
          dlg$.parent('.dialogPrompt.ui-dialog').css({position:"fixed"});
          //$('#'+dlg_id+'.dialogPrompt.ui-dialog').css({position:"fixed"});
       }
+      
+      dlg$.dialog("option", "position", "center");
       dlg$.dialog('open');
       
       //hide the title bar if no title
       if (!title){
           $('.ui-dialog-titlebar', dlg$.parent()).css({ display:'none' });
+      }
+      
+      if (browser_resize){
+         $(window).resize(function() {
+            dlg$.dialog("option", "position", "center");
+         });
       }
       
       
@@ -144,6 +152,6 @@
           existing_dlg$ = $("#dlgPrompt_" + dlg_counter);
        }
        //dlg_counter does not exist, lets create it!
-       return createDialog(opts.title, opts.msg, opts.type, opts.default_value, opts.success, opts.cancel, opts.ok_text, opts.cancel_txt, opts.fixed, opts.extra_html, opts.modal);   
+       return createDialog(opts.title, opts.msg, opts.type, opts.default_value, opts.success, opts.cancel, opts.ok_text, opts.cancel_txt, opts.fixed, opts.extra_html, opts.modal, opts.browser_resize);   
     }
 })(jQuery);
