@@ -6,7 +6,7 @@
  * $.dialogPrompt('Enter your name: ', '', function(value){ ... });
  *
  * @see http://github.com/relipse/jquery-dialogPrompt
- * @version 0.9913
+ * @version 0.9913.dbg
  */
 (function ($) {
     var dlg_counter = 1;
@@ -104,7 +104,9 @@
       dlg$.dialog("option", "position", "center");
       
       if (blur){
-        $('#'+dlg_id+' :button').blur();
+        var dlg_btns = '#'+dlg_id+' :button';
+        $(dlg_btns).blur();
+        console.log('blurred '+dlg_btns);
       }
       //hide the title bar if no title
       if (!title){
