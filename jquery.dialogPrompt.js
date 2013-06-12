@@ -104,7 +104,7 @@
       dlg$.dialog("option", "position", "center");
       
       if (blur){
-        dlg$.find(':button .ui-button').blur();
+        $('#'+dlg_id+' :button').blur();
       }
       //hide the title bar if no title
       if (!title){
